@@ -4,6 +4,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: test ssh
-        run: |
-          echo ${{ secrets.DEPLOY_KEY }} |  ssh -i /dev/stdin ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "whoami && sudo whoami"
+      - name: add ssh key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.DEPLOY_KEY }}
+      
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
