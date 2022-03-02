@@ -6,4 +6,4 @@ jobs:
     steps:
       - name: test ssh
         run: |
-          ssh -V
+          echo ${{ secrets.DEPLOY_KEY }} |  ssh -i /dev/stdin ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "whoami && sudo whoami"
