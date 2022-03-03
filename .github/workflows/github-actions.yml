@@ -1,24 +1,24 @@
 name: Test
 on: push
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: add ssh key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.DEPLOY_KEY }}
-          known_hosts: 'known_host'
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: add ssh key
+  #       uses: shimataro/ssh-key-action@v2
+  #       with:
+  #         key: ${{ secrets.DEPLOY_KEY }}
+  #         known_hosts: 'known_host'
       
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+      # - name: Adding Known Hosts
+      #   run: ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
 
       # - name: Deploy compose
       #   run: ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "sudo docker login sudo docker-compose pull && sudo docker-compose up -d"
 
   deploy:
     runs-on: self-hosted
-    needs: test
+    # needs: test
     steps:
       - name: Check out the code
         uses: actions/checkout@v2
